@@ -1,0 +1,130 @@
+body {
+	background-color: #212121;
+}
+
+div.playerblock {
+	width: 99%;
+	height: 100vh;
+	background-color: #242424;
+	position: relative;
+}
+
+h1.pcounter {
+	font-size: 6em;
+	position: absolute;
+	background-color: #1f1f1f;
+	color: white;
+	width: 10%;
+	text-align: center;
+	top: 1%;
+	left: 1%;
+	font-family: Impact;
+	margin-top: 0px;
+}
+
+div.pbcontainer {
+	position: absolute;
+	overflow: hidden;
+	/*padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+	top: 1%;
+	right: 1%;
+	width: 87%;
+	bottom: 12%;
+}
+
+iframe.responsiveiframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	border-style: none
+}
+
+div.spoilerbox {
+	position: absolute;
+	bottom: 1%;
+	right: 1%;
+	left: 12%;
+	height: 10%;
+	background-color: #111111;
+	border-style: solid;
+	border-width: 4px;
+	border-color: #aaa;
+	text-align: center;
+	font-size: 6.4em;
+	font-weight: bold;
+	font-family: Impact;
+	color: white;
+	line-height: 100%;
+}
+
+div.spoilered {
+	background-color: 444444;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	font-size: 0.1px;
+	color: 444444;
+}
+
+a.buttonbase {
+	position: absolute;
+	left:1%;
+	width:10%;
+	background-color: 1f1f1f;
+	border-style:solid;
+	border-width: 2px;
+	border-color: white;
+	font-size: 13em;
+	text-align: center;
+	font-weight: bolder;
+	color: white;
+	text-decoration: none;
+}
+
+a.upbutton {
+	bottom: 46%;
+	height: 26%;
+}
+
+a.downbutton {
+	bottom: 1%;
+	height: 26%;
+}
+
+a.refreshbutton {
+	height: 15%;
+	bottom: 29%;
+	line-height: 100%;
+	font-size: 8em;
+}
+
+h1.titlecard {
+	position: absolute;
+	left: 10%;
+	right: 0%;
+	top: 20%;
+	text-align: center;
+	font-size: 8em;
+	font-family: Impact;
+	font-weight: lighter;
+	color: white;
+}
+
+h2.subcard {
+	position: absolute;
+	left: 10%;
+	right: 0%;
+	top: 40%;
+	text-align: center;
+	color: dddddd;
+	font-family: Impact;
+	font-size: 5em;
+	bottom: 50%;
+	line-height: 10%;
+}
