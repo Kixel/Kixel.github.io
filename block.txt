@@ -12,4 +12,12 @@
 			contentdate
 		</div>
 	</div>
+	<div class="namebox">
+		<div class="promo">
+			pbpromo
+		</div>
+		<div class="promoname">
+			contentname
+		</div>
+	</div>
 </div>
