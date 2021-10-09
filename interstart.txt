@@ -7,8 +7,8 @@
 	</head>
 	<body>
 		<div class="playerblock" id='base'>
-			<h1 class="titlecard">Andi macht Partey</h1>
-			<h2 class="subcard">Von wann ist dieses Video?</h2>
+			<h1 class="titlecard">Pause vorbei!</h1>
+			<h2 class="subcard"><a href="lastpage">Nochmal kurz zurück?</a></h2>
 			
 			<a href="#pb0" class="downbutton buttonbase">🠗</a>
 		</div>

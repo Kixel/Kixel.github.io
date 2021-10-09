@@ -171,3 +171,11 @@ div.namebox {
 	text-align: right;
 	font-variant: small-caps;
 }
+
+.promoname a {
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+}
