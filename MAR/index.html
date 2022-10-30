@@ -47,7 +47,10 @@
             critical: "⚔",
             sixtynine: "👌",
             fortytwo: "🤖",
-            underten: "💩"
+            underten: "💩",
+            fivehundred: "👽",
+            sixsixsix: "👹",
+            thousand: "🤡"
         }
         const greencolor = [0, 192, 64];
         const redcolor = [192, 0, 32]
@@ -82,7 +85,8 @@
         const damagetype_emotes = {
             "physical": "⚔",
             "force": "✨",
-            "psy": "🔮",
+            //"psy": "🔮",
+            "psy": "🧠",
             "sonic": "🎶",
             "storm": "⚡",
             "acid": "☣",
@@ -92,7 +96,7 @@
             "evil": "👿",
             "other": "⚠",
             "precision": "🎯",
-            "sneak": "👁️‍🗨️"
+            //"sneak": "👁️‍🗨️"
         }
 
         const presets = {
@@ -282,6 +286,15 @@
             }
             if(dmg < 10*factor && !nopoo) {
                 hitemotes += emotes.underten;
+            }
+            if(dmg >= 500*factor) {
+                hitemotes += emotes.fivehundred;
+            }
+            if(dmg >= 1000*factor) {
+                hitemotes += emotes.thousand;
+            }
+            if(dmg == 666) {
+                hitemotes += emotes.sixsixsix;
             }
             return hitemotes;
         }
@@ -1454,6 +1467,7 @@
                             }
                         }
                         recolor();
+                        updateLayout();
 
 
                     }
@@ -1570,6 +1584,8 @@
 
                 </div>
                 <br /><br /><br />
+                <div ></div>
+                <br />
                 <div class="semiaccordion" id="huliresults">
                     <h3>Results for Hu Li</h3>
                     <div>
@@ -1717,27 +1733,33 @@
                         for (let dtype of relevanttypes) {
                             resulttable += '<th>' + alltotals[dtype] + '</th>';
                         }
-                        resulttable += '<th>' + damagebasedemotes(all, factor=2) + ' ' + all + '</th>';
+                        resulttable += '<th>' + damagebasedemotes(all, false, factor=2) + ' ' + all + '</th>';
                         resulttable += '</tbody>';
                         resulttable += '</table>';
                         $("#resultcontainer").append($(resulttable));
                         $("#resultcontainer").tooltip();
+                        updateLayout();
                     }
 
                     function resetresolver() {
                         $("#maintabs").tabs({active: 1});
+                        updateLayout();
                     }
                 </script>
             </div>
         </div>
     </div>
     <div class="buttoncontainer">
-        <button id="reset" onClick="resetresolver();">New Round</button>
-        <div class="rollbuttons">
-            <button id="rollall" onClick="rollall();">Roll all</button>
-            <button id="rollone" onClick="rollone();">Roll 1</button>
-        </div>
-        <button id="resolve" onClick="resolveattacks();">Resolve</button>
+        <button id="reset_bottom" onClick="resetresolver();" style="flex-grow: 20;">New Round</button>
+        <button id="rollall_bottom" onClick="rollall();" style="flex-grow: 35;">Roll</button>
+        <button id="rollone_bottom" onClick="rollone();" style="flex-grow: 15;">Roll 1</button>
+        <button id="resolve_bottom" onClick="resolveattacks();"  style="flex-grow: 20;">Resolve</button>
+    </div>
+    <div class="sidebuttoncontainer">
+        <button id="reset_side" onClick="resetresolver();" style="flex-grow: 20;">New<br />Round</button>
+        <button id="rollall_side" onClick="rollall();" style="flex-grow: 35;">Roll</button>
+        <button id="rollone_side" onClick="rollone();" style="flex-grow: 15;">Roll 1</button>
+        <button id="resolve_side" onClick="resolveattacks();"  style="flex-grow: 20;">Resolve</button>
     </div>
 
 
@@ -1766,19 +1788,55 @@
                 active: false
             })
             $("#maintabs").tabs({
-                heightStyle: "fill"
+                heightStyle: "fill",
+                show: "slide",
+                activate: function() {
+                    updateLayout();
+                }
             });
             //restyle normal inputs
             $('input').addClass("ui-widget ui-widget-content ui-corner-all");
 
             loadpreset(defaultload);
+            updateLayout();
         });
+
+        function updateLayout() {
+            
+            let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+            let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+            if(vw > vh) {
+                //landscape/horizontal
+                $(".tabcontainer").removeClass("tabbuttonsbottom");
+                $(".tabcontainer").addClass("tabbuttonsright");
+                $(".sidebuttoncontainer").removeClass("hidediv");
+                $(".buttoncontainer").addClass("hidediv")
+                
+            } else {
+                //portrait/vertical
+                $(".tabcontainer").removeClass("tabbuttonsright");
+                $(".tabcontainer").addClass("tabbuttonsbottom");
+                $(".buttoncontainer").removeClass("hidediv");
+                $(".sidebuttoncontainer").addClass("hidediv")
+            }
+            
+            
+            $("#huliresults").accordion("refresh");
+            $(".semiaccordion").accordion("refresh");
+            $(".normalaccordion").accordion("refresh");
+    
+            $("#maintabs").tabs("refresh");
+            $("#huliresults").accordion("refresh");
+            $(".semiaccordion").accordion("refresh");
+            $(".normalaccordion").accordion("refresh");
+
+        }
 
         $(window).resize(function() {
             console.log("viewport changed!");
-            $("#maintabs").tabs("refresh");
+            updateLayout();
         });
     </script>
-    <div class="versionnumber">0.2b preUI</div>
+    <div class="versionnumber">0.3 preHuLi</div>
 </body>
 </html>

@@ -3,9 +3,17 @@
 div.tabcontainer {
     top: 60px;
     position:absolute;
-    bottom: 200px;
+    bottom: 10px;
     left: 10px;
     right: 10px;
+}
+
+div.tabbuttonsbottom {
+    bottom: 200px !important;
+}
+
+div.tabbuttonsright {
+    right: 200px !important;
 }
 
 div.header {
@@ -55,10 +63,32 @@ div.buttoncontainer {
     left: 10px;
     right: 10px;
     height: 180px;
-    display:flex;
-    row-gap: 10px;
-    column-gap: 10px;
+    display: grid;
+    grid-template-columns: 20fr 35fr 15fr 20fr;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+}
 
+.buttoncontainer button {
+    font-size: 2.5em;
+    padding: 5px;
+}
+
+div.sidebuttoncontainer {
+    position: absolute;
+    bottom: 10px;
+    top: 60px;
+    right: 10px;
+    width: 180px;
+    display: grid;
+    grid-template-rows: 20fr 35fr 15fr 20fr;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+}
+
+.sidebuttoncontainer button {
+    font-size: 2.5em;
+    padding: 5px;
 }
 
 div.rollbuttons {
@@ -69,15 +99,20 @@ div.rollbuttons {
     flex-grow: 2;
 }
 
+div.hidediv {
+    display: none !important;
+}
+
+/*
 button#reset {
     height:100%;
-    /*width:25%;*/
+    /*width:25%;*
     flex-grow: 1;
 }
 
 button#resolve {
     height:100%;
-    /*width:25%;*/
+    /*width:25%;*
     flex-grow: 1;
 }
 
@@ -87,7 +122,7 @@ button#rollall {
 
 button#rollone {
     flex-grow: 1;
-}
+}*/
 
 .fullwidth {
     width:100%;
@@ -247,10 +282,7 @@ h4.totalsub {
 
 }
 
-.buttoncontainer button {
-    font-size: 2.5em;
-    padding: 5px;
-}
+
 
 .incritrange {
     color: green;
