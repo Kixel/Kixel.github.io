@@ -60,6 +60,7 @@
             var defaultload = "sven1";
         } 
 
+        var wassingleattack = false;
         const autodiceroll = true;
         const d20selector = '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option>'
         const damagetypes_full = ["physical", "force", "psy"];
@@ -631,7 +632,7 @@
                         console.log("Loading preset "+key+", named "+presets[key].name);
                         //TODO
                         for(const[presetkey, presetvalue] of Object.entries(presets[key].items)) {
-                            if(presetkey == "maincritroll" || presetkey == "offcritroll") {
+                            if(presetkey == "maincritroll" || presetkey == "offcritroll" || presetkey == "maincritmult" || presetkey == "offcritmult") {
                                 $("#"+presetkey).slider("value", presetvalue);
                             } else {
                                 $("#"+presetkey).val(presetvalue);
@@ -1397,7 +1398,12 @@
                     </tbody>
                 </table>
                 <script>
-                    function rollall(onlyone = false) {
+                    function rollall() {
+                        wassingleattack = false;
+                        roll(false);
+                    }
+
+                    function roll(onlyone = false) {
                         let attackmods = getAllOfModifier("_AT");
                         let totalattackmods = sumOfArray(attackmods);
                         
@@ -1473,7 +1479,8 @@
                     }
                     function rollone() {
                         //$("#maintabs").tabs({active: 2});
-                        rollall(true);
+                        wassingleattack = true;
+                        roll(true);
 
                     }
 
@@ -1584,17 +1591,25 @@
 
                 </div>
                 <br /><br /><br />
-                <div ></div>
-                <br />
+                
                 <div class="semiaccordion" id="huliresults">
-                    <h3>Results for Hu Li</h3>
+                    <h3>Results for Discord</h3>
                     <div>
-
+                        <textarea id="discordoutput" class="discordoutput" cols="200" rows="10" disabled>asdf</textarea>
+                        <button onclick="copydiscordoutput();" class="fullwidth">Copy to clipboard</button>
                     </div>
                 </div>
                 <script>
+                    function copydiscordoutput() {
+                        let outtext = $("#discordoutput").val();
+                        navigator.clipboard.writeText(outtext).then(function() {
+                            $("#discordoutput").css("border-color", "lightgreen").animate({"border-color": "black"}, 2000);
+                        }, function(err) {
+                            $("#discordoutput").css("border-color", "red").animate({"border-color": "black"}, 2000);
+                        })
+                    }
+
                     function resolveattacks() {
-                        $("#maintabs").tabs({active: 3});
                         // RESOLVE ATTACKS
                         $("#resultcontainer").empty();
                         let resulttable = '<table class="resulttable fullwidth">';
@@ -1738,6 +1753,36 @@
                         resulttable += '</table>';
                         $("#resultcontainer").append($(resulttable));
                         $("#resultcontainer").tooltip();
+                        let discordout = "";
+                        if(wassingleattack) {
+                            discordout += "single attack\n";
+                        } else {
+                            discordout += "normal attack round\n";
+                        }
+                        discordout += "```\n";
+                        for (const [key1, vvv1] of Object.entries(alldmg)) {
+                            for (const [key2, vvv2] of Object.entries(vvv1)) {
+                                if(key2 == "total") {
+                                    continue;
+                                }
+                                if(vvv2.total == 0) {
+                                    continue;
+                                }
+                                console.log(key1, vvv1, key2, vvv2);
+                                let dtypename = damagetype_aliases[key2];
+                                console.log(dtypename);
+                                let dtypelower = dtypename.toLowerCase();
+                                console.log(dtypelower);
+                                discordout += vvv2.total + " " + dtypelower + " + ";
+                            }
+                            discordout = discordout.substring(0, discordout.length-2) + "damage\n";
+                        }
+                        discordout += "\n```";
+                        $("#discordoutput").val(discordout);
+
+
+
+                        $("#maintabs").tabs({active: 3});
                         updateLayout();
                     }
 
@@ -1785,7 +1830,9 @@
                 collapsible: false
             })
             $("#huliresults").accordion({
-                active: false
+                active: false,
+                clearStyle: true,
+                heightStyle: "content"
             })
             $("#maintabs").tabs({
                 heightStyle: "fill",
@@ -1837,6 +1884,6 @@
             updateLayout();
         });
     </script>
-    <div class="versionnumber">0.3 preHuLi</div>
+    <div class="versionnumber">0.4 beta</div>
 </body>
 </html>
