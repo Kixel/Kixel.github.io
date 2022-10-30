@@ -59,7 +59,7 @@
         const damagetypes_dice = ["sonic", "storm", "acid", "fire", "ice", "good", "evil", "other"];
         const damagetypes_fix = ["other"];
         const damagetypes_hidden_dice = ["precision", "sneak"];
-        const damagedice = ["", "1d6", "2d6", "1d8", "2d8", "1d10", "1d12", "1d4", "2d4", "5d4", "3d6", "4d6", "5d6", "6d6", "7d6", "8d6", "9d6", "10d6"];
+        const damagedice = ["", "1d6", "2d6", "1d8", "2d8", "1d10", "1d12", "1d4", "2d4", "3d4", "4d4", "5d4", "3d6", "4d6", "5d6", "6d6", "7d6", "8d6", "9d6", "10d6"];
         const damagetype_aliases = {
             "physical": "Physical",
             "force": "Force",
@@ -456,7 +456,7 @@
                 name: "Psychic Barrage",
                 items: {
                     "mainattackchain": "1000",
-                    "offattackchain": "",
+                    "offattackchain": "1000",
                     "maincritroll": 20,
                     "offcritroll": 20,
                     "maincritmult": 1,
@@ -494,10 +494,10 @@
                     "maincrit_other_fix": "",
                     "off_physical_dice": "",
                     "off_physical_fix": "",
-                    "off_force_dice": "",
-                    "off_force_fix": "",
-                    "off_psy_dice": "",
-                    "off_psy_fix": "",
+                    "off_force_dice": "2d4",
+                    "off_force_fix": "2",
+                    "off_psy_dice": "7d6",
+                    "off_psy_fix": "12",
                     "off_sonic_dice": "",
                     "off_storm_dice": "",
                     "off_acid_dice": "",
@@ -616,7 +616,7 @@
         }
         function verboseDamageString(numbersarr, verbosearr) {
             let outputstring = "";
-            console.log(numbersarr, verbosearr);
+            //console.log(numbersarr, verbosearr);
             for(let i = 0; i < numbersarr.length; i++) {
                 if(numbersarr[i] instanceof Array) {
                     outputstring += "[" + verbosearr[i] + ": ";
@@ -628,9 +628,9 @@
                 } else {
                     outputstring += numbersarr[i]+", ";
                 }
-                console.log(outputstring);
+                //console.log(outputstring);
             }
-            console.log(outputstring);
+            //console.log(outputstring);
             return outputstring.substring(0, outputstring.length-2);
         }
         function multiplydice(dicesimple, multiplier) {
@@ -949,8 +949,8 @@
                                 newfile.items[newitem] = aaaa;
                             }
                             let filename = outputname.replace(/[/\\?%*:|"äöü <>]/g, '-') + ".json";
-                            console.log(filename);
-                            console.log(newfile);
+                            //console.log(filename);
+                            //console.log(newfile);
                             const a = document.createElement("a");
                             a.href = URL.createObjectURL(new Blob([JSON.stringify(newfile, null, 2)], {
                                 type: "text/plain"
@@ -973,7 +973,7 @@
                         var reader = new FileReader();
                         reader.onload = function(e) {
                             var contents = e.target.result;
-                            console.log(contents);
+                            //console.log(contents);
                             const tojson = JSON.parse(contents);
                             presets["loadedfromfile"] = tojson;
                         };
@@ -1799,7 +1799,7 @@
                             let hitnumber = randomdicenumber(20);
                             //$("#" + + attackid[0] + '_tohit').prop("checked", false).checkboxradio('refresh');
                             if(hitnumber == 20) {
-                                console.log(attackid[0] + '_tohit rolled a 20!');
+                                //console.log(attackid[0] + '_tohit rolled a 20!');
                                 $("#" + attackid[0] + '_tohit').prop("checked", true);
                                 //$("#" + + attackid[0] + '_tohit').prop("checked", true).change();
                             }
@@ -1848,14 +1848,14 @@
                                 continue;
                             }
                             if(filterArray(getAllOfDamage("_" + dtype + "_"), "").length == 0) {
-                                console.log("skipped dtype "+dtype);
+                                //console.log("skipped dtype "+dtype);
                                 continue;
                             }
-                            console.log("added dtype "+dtype + " with entries:")
-                            console.log(filterArray(getAllOfDamage("_" + dtype + "_"), ""));
+                            //console.log("added dtype "+dtype + " with entries:")
+                            //console.log(filterArray(getAllOfDamage("_" + dtype + "_"), ""));
                             relevanttypes.push(dtype);
                         }
-                        console.log(relevanttypes);
+                        console.log("relevanttypes", relevanttypes);
                         resulttable += "<thead><tr><th colspan='2'></th>";
                         for(let dtype of relevanttypes) {
                             resulttable += "<th>" + damagetype_aliases[dtype] + "</th>";
@@ -1875,7 +1875,7 @@
                             //console.log(attackid+" hits!");
                             let hitemote = emotes.normal;
                             if($("#manyshot_MANYSHOT").text() == "1" && attackid == "main0") {
-                                console.log("Manyshot hits!");
+                                //console.log("Manyshot hits!");
                                 hitemote = emotes.manyshot;
                             }
                             if(crits) {
@@ -1895,8 +1895,14 @@
                                 let alldice = filterArray(getAllOfDamage(query+"_dice"), "");
                                 let allfix = filterArray(getAllOfDamage(query+"_fix"), "");
                                 if($("#manyshot_MANYSHOT").text() == "1" && attackid == "main0") {
-                                    alldice = alldice.concat(alldice);
-                                    allfix = allfix.concat(allfix);
+                                    if(dtype != "precision") {
+                                        //console.log("manyshot", alldice, dtype);
+                                        alldice = alldice.concat(alldice);
+                                        allfix = allfix.concat(allfix);
+                                    } else {
+                                        console.log("no manyshot for precision");
+                                    }
+
                                 }
                                 if(crits) {
                                     let critquery = ismainhand ? "maincrit_" : "offcrit_";
@@ -1941,7 +1947,7 @@
                             resulttable += "<td>" + hitemote + "</td><th>" + $("#"+attackid+" th").text() + "</th>"
                             for(let dtype of relevanttypes) {
                                 let verbs = verboseDamageString(damage[dtype].singles, damage[dtype].vocal);
-                                console.log(verbs);
+                                //console.log(verbs);
                                 resulttable += '<td title="' + verbs + '">'+damagebasedemotes(damage[dtype].total, true, factor=0.5)+"&nbsp;"+damagetype_emotes[dtype]+'<span id="">'+damage[dtype].total+'</span></td>'
                             }
                             resulttable += '<td>' + damage.total + '</td>'
@@ -1984,11 +1990,11 @@
                                 if(vvv2.total == 0) {
                                     continue;
                                 }
-                                console.log(key1, vvv1, key2, vvv2);
+                                //console.log(key1, vvv1, key2, vvv2);
                                 let dtypename = damagetype_aliases[key2];
-                                console.log(dtypename);
+                                //console.log(dtypename);
                                 let dtypelower = dtypename.toLowerCase();
-                                console.log(dtypelower);
+                                //console.log(dtypelower);
                                 discordout += vvv2.total + " " + dtypelower + " + ";
                             }
                             discordout = discordout.substring(0, discordout.length-2) + "damage\n";
@@ -2086,10 +2092,10 @@
             $(".normalaccordion").accordion("refresh");
         }
         $(window).resize(function() {
-            console.log("viewport changed!");
+            //console.log("viewport changed!");
             updateLayout();
         });
     </script>
-    <div class="versionnumber">0.4b beta</div>
+    <div class="versionnumber">0.4c beta</div>
 </body>
 </html>
