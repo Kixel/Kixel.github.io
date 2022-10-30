@@ -1,15 +1,14 @@
 ﻿<!DOCTYPE html>
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Carter One">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://randojs.com/2.0.0.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="./MAR.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script src="scripts/jquery.table.transpose.min.js"></script>
     <title>Multi-Attack-Resolver</title>
     <script>
         (function ($) {
@@ -18,25 +17,20 @@
                     css: 'ui-styled-table'
                 };
                 options = $.extend(defaults, options);
-
                 return this.each(function () {
                     $this = $(this);
                     $this.addClass(options.css);
-
                     $this.on('mouseover mouseout', 'tbody tr', function (event) {
                         $(this).children().toggleClass("ui-state-hover",
                             event.type == 'mouseover');
                     });
-
                     $this.find("th").addClass("ui-state-default");
                     $this.find("td").addClass("ui-widget-content");
                     $this.find("tr:last-child").addClass("last-child");
                 });
             };
         })(jQuery);
-
     </script>
-
     <script>
         const emotes = {
             manyshot: "🏹",
@@ -54,12 +48,10 @@
         }
         const greencolor = [0, 192, 64];
         const redcolor = [192, 0, 32]
-
         var defaultload = "default";
         if(document.location.hostname == "") {
             var defaultload = "sven1";
         } 
-
         var wassingleattack = false;
         const autodiceroll = true;
         const d20selector = '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option>'
@@ -99,11 +91,10 @@
             "precision": "🎯",
             //"sneak": "👁️‍🗨️"
         }
-
         const presets = {
             "default": {
-                "name": "Default",
-                "items": {
+                name: "Default",
+                items: {
                     "mainattackchain": "1",
                     "offattackchain": "",
                     "maincritroll": 20,
@@ -176,50 +167,364 @@
             "sven1": {
                 name: "Svens Megastab",
                 items: {
-                    "mainattackchain": "24,19,14",
-                    "offattackchain": "24,19,14",
-                    "maincritroll": "15",
-                    "offcritroll": "18",
-                    "critbonus": "9",
-                    "main_physical_dice": "1d6",
-                    "main_physical_fix": "7",
-                    "maincrit_physical_dice": "1d6",
-                    "maincrit_physical_fix": "7",
-                    "off_physical_dice": "1d6",
-                    "off_physical_fix": "7",
-                    "offcrit_physical_dice": "1d6",
-                    "offcrit_physical_fix": "7",
-                    "maincrit_sonic_dice": "1d8",
-                    "offcrit_sonic_dice": "1d8"
+                    "mainattackchain": "1",
+                    "offattackchain": "",
+                    "maincritroll": 20,
+                    "offcritroll": 20,
+                    "maincritmult": 1,
+                    "offcritmult": 1,
+                    "critbonus": "",
+                    "main_physical_dice": "",
+                    "main_physical_fix": "",
+                    "main_force_dice": "",
+                    "main_force_fix": "",
+                    "main_psy_dice": "",
+                    "main_psy_fix": "",
+                    "main_sonic_dice": "",
+                    "main_storm_dice": "",
+                    "main_acid_dice": "",
+                    "main_fire_dice": "",
+                    "main_ice_dice": "",
+                    "main_good_dice": "",
+                    "main_evil_dice": "",
+                    "main_other_dice": "",
+                    "main_other_fix": "",
+                    "maincrit_physical_dice": "",
+                    "maincrit_physical_fix": "",
+                    "maincrit_force_dice": "",
+                    "maincrit_force_fix": "",
+                    "maincrit_psy_dice": "",
+                    "maincrit_psy_fix": "",
+                    "maincrit_sonic_dice": "",
+                    "maincrit_storm_dice": "",
+                    "maincrit_acid_dice": "",
+                    "maincrit_fire_dice": "",
+                    "maincrit_ice_dice": "",
+                    "maincrit_good_dice": "",
+                    "maincrit_evil_dice": "",
+                    "maincrit_other_dice": "",
+                    "maincrit_other_fix": "",
+                    "off_physical_dice": "",
+                    "off_physical_fix": "",
+                    "off_force_dice": "",
+                    "off_force_fix": "",
+                    "off_psy_dice": "",
+                    "off_psy_fix": "",
+                    "off_sonic_dice": "",
+                    "off_storm_dice": "",
+                    "off_acid_dice": "",
+                    "off_fire_dice": "",
+                    "off_ice_dice": "",
+                    "off_good_dice": "",
+                    "off_evil_dice": "",
+                    "off_other_dice": "",
+                    "off_other_fix": "",
+                    "offcrit_physical_dice": "",
+                    "offcrit_physical_fix": "",
+                    "offcrit_force_dice": "",
+                    "offcrit_force_fix": "",
+                    "offcrit_psy_dice": "",
+                    "offcrit_psy_fix": "",
+                    "offcrit_sonic_dice": "",
+                    "offcrit_storm_dice": "",
+                    "offcrit_acid_dice": "",
+                    "offcrit_fire_dice": "",
+                    "offcrit_iced_ice": "",
+                    "offcrit_good_dice": "",
+                    "offcrit_evil_dice": "",
+                    "offcrit_other_dice": "",
+                    "offcrit_other_fix": ""
                 }
             },
             "dinh1": {
-                name: "Dinhs Shootyshoot",
-                items: {
-
+                "name": "Hu-Li",
+                "items": {
+                    "mainattackchain": "30,25,20,15",
+                    "offattackchain": "",
+                    "maincritroll": 19,
+                    "offcritroll": 20,
+                    "critbonus": "",
+                    "maincritmult": 2,
+                    "offcritmult": 1,
+                    "main_physical_dice": "1d8",
+                    "main_physical_fix": "28",
+                    "main_force_dice": "",
+                    "main_force_fix": "",
+                    "main_psy_dice": "",
+                    "main_psy_fix": "",
+                    "main_sonic_dice": "",
+                    "main_storm_dice": "",
+                    "main_acid_dice": "1d6",
+                    "main_fire_dice": "",
+                    "main_ice_dice": "",
+                    "main_good_dice": "",
+                    "main_evil_dice": "",
+                    "main_other_dice": "",
+                    "main_other_fix": "",
+                    "maincrit_physical_dice": "2d8",
+                    "maincrit_physical_fix": "56",
+                    "maincrit_force_dice": "",
+                    "maincrit_force_fix": "",
+                    "maincrit_psy_dice": "",
+                    "maincrit_psy_fix": "",
+                    "maincrit_sonic_dice": "",
+                    "maincrit_storm_dice": "",
+                    "maincrit_acid_dice": "",
+                    "maincrit_fire_dice": "",
+                    "maincrit_ice_dice": "",
+                    "maincrit_good_dice": "",
+                    "maincrit_evil_dice": "",
+                    "maincrit_other_dice": "",
+                    "maincrit_other_fix": "",
+                    "off_physical_dice": "",
+                    "off_physical_fix": "",
+                    "off_force_dice": "",
+                    "off_force_fix": "",
+                    "off_psy_dice": "",
+                    "off_psy_fix": "",
+                    "off_sonic_dice": "",
+                    "off_storm_dice": "",
+                    "off_acid_dice": "",
+                    "off_fire_dice": "",
+                    "off_ice_dice": "",
+                    "off_good_dice": "",
+                    "off_evil_dice": "",
+                    "off_other_dice": "",
+                    "off_other_fix": "",
+                    "offcrit_physical_dice": "",
+                    "offcrit_physical_fix": "",
+                    "offcrit_force_dice": "",
+                    "offcrit_force_fix": "",
+                    "offcrit_psy_dice": "",
+                    "offcrit_psy_fix": "",
+                    "offcrit_sonic_dice": "",
+                    "offcrit_storm_dice": "",
+                    "offcrit_acid_dice": "",
+                    "offcrit_fire_dice": "",
+                    "offcrit_ice_dice": "",
+                    "offcrit_good_dice": "",
+                    "offcrit_evil_dice": "",
+                    "offcrit_other_dice": "",
+                    "offcrit_other_fix": ""
                 }
             },
             "andi1": {
                 name: "Andis Bonk",
                 items: {
-
+                    "mainattackchain": "1",
+                    "offattackchain": "",
+                    "maincritroll": 20,
+                    "offcritroll": 20,
+                    "maincritmult": 1,
+                    "offcritmult": 1,
+                    "critbonus": "",
+                    "main_physical_dice": "",
+                    "main_physical_fix": "",
+                    "main_force_dice": "",
+                    "main_force_fix": "",
+                    "main_psy_dice": "",
+                    "main_psy_fix": "",
+                    "main_sonic_dice": "",
+                    "main_storm_dice": "",
+                    "main_acid_dice": "",
+                    "main_fire_dice": "",
+                    "main_ice_dice": "",
+                    "main_good_dice": "",
+                    "main_evil_dice": "",
+                    "main_other_dice": "",
+                    "main_other_fix": "",
+                    "maincrit_physical_dice": "",
+                    "maincrit_physical_fix": "",
+                    "maincrit_force_dice": "",
+                    "maincrit_force_fix": "",
+                    "maincrit_psy_dice": "",
+                    "maincrit_psy_fix": "",
+                    "maincrit_sonic_dice": "",
+                    "maincrit_storm_dice": "",
+                    "maincrit_acid_dice": "",
+                    "maincrit_fire_dice": "",
+                    "maincrit_ice_dice": "",
+                    "maincrit_good_dice": "",
+                    "maincrit_evil_dice": "",
+                    "maincrit_other_dice": "",
+                    "maincrit_other_fix": "",
+                    "off_physical_dice": "",
+                    "off_physical_fix": "",
+                    "off_force_dice": "",
+                    "off_force_fix": "",
+                    "off_psy_dice": "",
+                    "off_psy_fix": "",
+                    "off_sonic_dice": "",
+                    "off_storm_dice": "",
+                    "off_acid_dice": "",
+                    "off_fire_dice": "",
+                    "off_ice_dice": "",
+                    "off_good_dice": "",
+                    "off_evil_dice": "",
+                    "off_other_dice": "",
+                    "off_other_fix": "",
+                    "offcrit_physical_dice": "",
+                    "offcrit_physical_fix": "",
+                    "offcrit_force_dice": "",
+                    "offcrit_force_fix": "",
+                    "offcrit_psy_dice": "",
+                    "offcrit_psy_fix": "",
+                    "offcrit_sonic_dice": "",
+                    "offcrit_storm_dice": "",
+                    "offcrit_acid_dice": "",
+                    "offcrit_fire_dice": "",
+                    "offcrit_iced_ice": "",
+                    "offcrit_good_dice": "",
+                    "offcrit_evil_dice": "",
+                    "offcrit_other_dice": "",
+                    "offcrit_other_fix": ""
                 }
             },
             "heinz1": {
                 name: "Heinzs Snipe",
                 items: {
-
+                    "mainattackchain": "1",
+                    "offattackchain": "",
+                    "maincritroll": 20,
+                    "offcritroll": 20,
+                    "maincritmult": 1,
+                    "offcritmult": 1,
+                    "critbonus": "",
+                    "main_physical_dice": "",
+                    "main_physical_fix": "",
+                    "main_force_dice": "",
+                    "main_force_fix": "",
+                    "main_psy_dice": "",
+                    "main_psy_fix": "",
+                    "main_sonic_dice": "",
+                    "main_storm_dice": "",
+                    "main_acid_dice": "",
+                    "main_fire_dice": "",
+                    "main_ice_dice": "",
+                    "main_good_dice": "",
+                    "main_evil_dice": "",
+                    "main_other_dice": "",
+                    "main_other_fix": "",
+                    "maincrit_physical_dice": "",
+                    "maincrit_physical_fix": "",
+                    "maincrit_force_dice": "",
+                    "maincrit_force_fix": "",
+                    "maincrit_psy_dice": "",
+                    "maincrit_psy_fix": "",
+                    "maincrit_sonic_dice": "",
+                    "maincrit_storm_dice": "",
+                    "maincrit_acid_dice": "",
+                    "maincrit_fire_dice": "",
+                    "maincrit_ice_dice": "",
+                    "maincrit_good_dice": "",
+                    "maincrit_evil_dice": "",
+                    "maincrit_other_dice": "",
+                    "maincrit_other_fix": "",
+                    "off_physical_dice": "",
+                    "off_physical_fix": "",
+                    "off_force_dice": "",
+                    "off_force_fix": "",
+                    "off_psy_dice": "",
+                    "off_psy_fix": "",
+                    "off_sonic_dice": "",
+                    "off_storm_dice": "",
+                    "off_acid_dice": "",
+                    "off_fire_dice": "",
+                    "off_ice_dice": "",
+                    "off_good_dice": "",
+                    "off_evil_dice": "",
+                    "off_other_dice": "",
+                    "off_other_fix": "",
+                    "offcrit_physical_dice": "",
+                    "offcrit_physical_fix": "",
+                    "offcrit_force_dice": "",
+                    "offcrit_force_fix": "",
+                    "offcrit_psy_dice": "",
+                    "offcrit_psy_fix": "",
+                    "offcrit_sonic_dice": "",
+                    "offcrit_storm_dice": "",
+                    "offcrit_acid_dice": "",
+                    "offcrit_fire_dice": "",
+                    "offcrit_iced_ice": "",
+                    "offcrit_good_dice": "",
+                    "offcrit_evil_dice": "",
+                    "offcrit_other_dice": "",
+                    "offcrit_other_fix": ""
                 }
             },
             "alessia1": {
                 name: "Psychic Barrage",
                 items: {
-
+                    "mainattackchain": "1000",
+                    "offattackchain": "",
+                    "maincritroll": 20,
+                    "offcritroll": 20,
+                    "maincritmult": 1,
+                    "offcritmult": 1,
+                    "critbonus": "",
+                    "main_physical_dice": "",
+                    "main_physical_fix": "",
+                    "main_force_dice": "5d4",
+                    "main_force_fix": "5",
+                    "main_psy_dice": "7d6",
+                    "main_psy_fix": "12",
+                    "main_sonic_dice": "",
+                    "main_storm_dice": "",
+                    "main_acid_dice": "",
+                    "main_fire_dice": "",
+                    "main_ice_dice": "",
+                    "main_good_dice": "",
+                    "main_evil_dice": "",
+                    "main_other_dice": "",
+                    "main_other_fix": "",
+                    "maincrit_physical_dice": "",
+                    "maincrit_physical_fix": "",
+                    "maincrit_force_dice": "",
+                    "maincrit_force_fix": "",
+                    "maincrit_psy_dice": "",
+                    "maincrit_psy_fix": "",
+                    "maincrit_sonic_dice": "",
+                    "maincrit_storm_dice": "",
+                    "maincrit_acid_dice": "",
+                    "maincrit_fire_dice": "",
+                    "maincrit_ice_dice": "",
+                    "maincrit_good_dice": "",
+                    "maincrit_evil_dice": "",
+                    "maincrit_other_dice": "",
+                    "maincrit_other_fix": "",
+                    "off_physical_dice": "",
+                    "off_physical_fix": "",
+                    "off_force_dice": "",
+                    "off_force_fix": "",
+                    "off_psy_dice": "",
+                    "off_psy_fix": "",
+                    "off_sonic_dice": "",
+                    "off_storm_dice": "",
+                    "off_acid_dice": "",
+                    "off_fire_dice": "",
+                    "off_ice_dice": "",
+                    "off_good_dice": "",
+                    "off_evil_dice": "",
+                    "off_other_dice": "",
+                    "off_other_fix": "",
+                    "offcrit_physical_dice": "",
+                    "offcrit_physical_fix": "",
+                    "offcrit_force_dice": "",
+                    "offcrit_force_fix": "",
+                    "offcrit_psy_dice": "",
+                    "offcrit_psy_fix": "",
+                    "offcrit_sonic_dice": "",
+                    "offcrit_storm_dice": "",
+                    "offcrit_acid_dice": "",
+                    "offcrit_fire_dice": "",
+                    "offcrit_iced_ice": "",
+                    "offcrit_good_dice": "",
+                    "offcrit_evil_dice": "",
+                    "offcrit_other_dice": "",
+                    "offcrit_other_fix": ""
                 }
             }
         };
-
-
     </script>
     <script>
         function getAllOfDamage(partialkey) {
@@ -252,22 +557,17 @@
             })
             return output;
         }
-
-
         function isDice(input) {
             let reg = /^\d+d\d+/
             return reg.test(input);
         }
-
         function getAllOfModifier(partialkey) {
             let output = [];
             $("span[id*='"+partialkey+"']").each(function(i, obj) {
                 output.push(obj.innerHTML);
             })
-
             return output;
         }
-
         function damagebasedemotes(dmg, nopoo=false, factor=1) {
             let hitemotes = ""
             if(dmg >= 50*factor) {
@@ -299,16 +599,13 @@
             }
             return hitemotes;
         }
-
         function randomdicenumber(max) {
             //return Math.floor(Math.random() * max) + 1;
             return rando(1,max);
         }
-
         function sumOfArray(inputarray) {
             return inputarray.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
         }
-
         function rolldice(dicesimple) {
             let parts = dicesimple.split("d");
             var output = [];
@@ -317,7 +614,6 @@
             }
             return output;
         }
-
         function verboseDamageString(numbersarr, verbosearr) {
             let outputstring = "";
             console.log(numbersarr, verbosearr);
@@ -337,13 +633,11 @@
             console.log(outputstring);
             return outputstring.substring(0, outputstring.length-2);
         }
-
         function multiplydice(dicesimple, multiplier) {
             let parts = dicesimple.split("d");
             let firstnumber = parseInt(parts[0]) * parseInt(multiplier);
             return firstnumber + "d" + parts[1];
         }
-
         function getDiceSelector(classname) {
             let output = '<select name="' + classname + '" id="' + classname + '">';
             for (let damagedie of damagedice) {
@@ -352,7 +646,6 @@
             output += '</select>';
             return output;
         }
-
         function filterArray(inarray, filter) {
             let outputarray = [];
             for(let inar of inarray) {
@@ -362,14 +655,12 @@
             }
             return outputarray;
         }
-
         function colorscale(colorone, colortwo, percent) {
             let r = colorone[0]*percent + colortwo[0]*(1-percent);
             let g = colorone[1]*percent + colortwo[1]*(1-percent);
             let b = colorone[2]*percent + colortwo[2]*(1-percent);
             return [r,g,b];
         }
-
     </script>
 </head>
 <body>
@@ -377,7 +668,6 @@
         <h1 class="totaltitle">Pathfinder Multi Attack Resolver</h1>
         <h4 class="totalsub">... for lazy people!</h4>
     </div>
-
     <div class="tabcontainer">
         <div id="maintabs">
             <ul>
@@ -387,6 +677,25 @@
                 <li><a href="#resulttab">RESULT</a></li>
             </ul>
             <div id="setuptab">
+                <div class="semiaccordion">
+                    <h3>Presets</h3>
+                    <div id="presetcontainer">
+                        
+                    </div>
+                </div>
+                <div class="semiaccordion">
+                    <h3>Load/Save</h3>
+                    <div id="loadsavecontainer">
+                        <div id="loadbox">
+                            <input type="file" id="presetinput" />
+                            <button onclick="loadpreset('loadedfromfile');" id="presetinputbutton" disabled>LOAD FILE</button>
+                        </div>
+                        <div id="savebox">
+                            <input type="text" id="outputpresetname" placeholder="Preset name"  />
+                            <button id="outputpresetbutton" onclick="savetofile()" disabled>SAVE TO FILE</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="semiaccordion">
                     <h3>Basic setup</h3>
                     <div>
@@ -473,7 +782,6 @@
                                     <label for="offcritroll">Select value from 1-20</label>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td>
                                     <label for="maincritmult">Main crit multiplier</label>
@@ -503,7 +811,6 @@
                                     <label for="maincritmult">Only used for multiplying damage from the Modify tab</label>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td>
                                     <label for="offcritmult">Offhand crit multiplier</label>
@@ -533,7 +840,6 @@
                                     <label for="offcritmult">Only used for multiplying damage from the Modify tab</label>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td>
                                     <label for="critbonus">Crit confirm bonus</label>
@@ -560,24 +866,24 @@
                             </thead>
                             <tbody>
                                 <tr id="main">
-                                    <th title="Damage components with a normal attack with your mainhand weapon.">Mainhand</th>
+                                    <td title="Damage components with a normal attack with your mainhand weapon.">Mainhand</th>
                                 </tr>
                                 <tr id="maincrit">
-                                    <th title="Damage components added to your normal damage on a crit with your mainhand weapon.">Main Crit</th>
+                                    <td title="Damage components added to your normal damage on a crit with your mainhand weapon.">Main Crit</th>
                                 </tr>
                                 <tr id="off">
-                                    <th title="Damage components with a normal attack with your offhand weapon. Has no effect if no offhand attack chain is set.">Offhand</th>
+                                    <td title="Damage components with a normal attack with your offhand weapon. Has no effect if no offhand attack chain is set.">Offhand</th>
                                 </tr>
                                 <tr id="offcrit">
-                                    <th title="Damage components added to your normal damage on a crit with your mainhand weapon. Has no effect if no offhand attack chain is set.">Off Crit</th>
+                                    <td title="Damage components added to your normal damage on a crit with your mainhand weapon. Has no effect if no offhand attack chain is set.">Off Crit</th>
                                 </tr>
                             </tbody>
                         </table>
-
+                        <br />
                         <script>
                             $("#damagesetup").tooltip();
                             for (let dtfull of damagetypes_full) {
-                                $("#damagesetup thead tr").append('<th colspan="2">' + damagetype_aliases[dtfull] + '</th>');
+                                $("#damagesetup thead tr").append('<th>' + damagetype_aliases[dtfull] + '</th><th></th>');
                                 $("#damagesetup tbody").find('tr').each(function () {
                                     let rkey = $(this).attr('id') + "_" + dtfull;
                                     $(this).append('<td>' + getDiceSelector(rkey + "_dice") + '</td><td><input type="number" id="' + rkey + "_fix"+'" /></td>');
@@ -597,29 +903,11 @@
                                     $(this).append('<td><input type="number" id="' + rkey + "_fix" +'" /></td>');
                                 })
                             }
-                            $("#damagesetup").styleTable();
-
+                            //$("#damagesetup").styleTable();
                         </script>
                     </div>
                 </div>
-                <div class="semiaccordion">
-                    <h3>Load/Save</h3>
-                    <div id="loadsavecontainer">
-                        <div id="loadbox">
-                            <input type="file" id="presetinput" />
-                            <button onclick="loadpreset('loadedfromfile');" id="presetinputbutton" disabled>LOAD FILE</button>
-                        </div>
-
-                        <div id="savebox">
-                            <input type="text" id="outputpresetname" placeholder="Preset name"  />
-                            <button id="outputpresetbutton" onclick="savetofile()" disabled>SAVE TO FILE</button>
-                        </div>
-                    </div>
-                    <h3>Presets</h3>
-                    <div id="presetcontainer">
-                        
-                    </div>
-                </div>
+                
                 <script>
                     function updateloadbutton() {
                         let nn = $("#outputpresetname").val();
@@ -627,7 +915,6 @@
                         $("#outputpresetbutton").button("option", "disabled",  nnn);
                     }
                     $("#outputpresetname").on("change keydown paste input", updateloadbutton);
-
                     function loadpreset(key) {
                         console.log("Loading preset "+key+", named "+presets[key].name);
                         //TODO
@@ -650,7 +937,6 @@
                             let newfile = {
                                 name: $("#outputpresetname").val(),
                                 items: {
-
                                 }
                             }
                             for(let newitem of listofitems) {
@@ -675,11 +961,9 @@
                             document.body.removeChild(a);
                         }
                     }
-
                     function saveandcontinue() {
                         $("#maintabs").tabs({active: 1});
                     }
-
                     function readSingleFile(e) {
                         var file = e.target.files[0];
                         if (!file) {
@@ -695,7 +979,6 @@
                         };
                         reader.readAsText(file);
                     }
-
                     $("#presetinput").change(readSingleFile);
                 </script>
                 <button class="fullwidth topmargin" onclick="saveandcontinue();">Continue</button>
@@ -714,7 +997,6 @@
                                 <tr>
                                     <th colspan="5">General</th>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="inspirecourage_active" /></td>
                                     <td><label for="inspirecourage_active">Inspire Courage</label></td>
@@ -747,19 +1029,16 @@
                                                     $("#inspirecourage_AT").text("0");
                                                     //$("#inspirecourage_BONUSFIX_physical").text("0");
                                                     $("#inspirecouragesonic_active").prop('checked', false);
-
                                                     $("#inspirecourage_bonus_main_physical_fix").text("");
                                                     $("#inspirecourage_bonus_maincrit_physical_fix").text("");
                                                     $("#inspirecourage_bonus_off_physical_fix").text("");
                                                     $("#inspirecourage_bonus_offcrit_physical_fix").text("");
-
                                                 }
                                             };
                                         </script>
                                         <span id="inspirecourage_AT">0</span><span id="inspirecourage_bonus_main_physical_fix"></span><span id="inspirecourage_bonus_maincrit_physical_fix"></span><span id="inspirecourage_bonus_off_physical_fix"></span><span id="inspirecourage_bonus_offcrit_physical_fix"></span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="inspirecouragesonic_active" /></td>
                                     <td><label for="inspirecouragesonic_active">Inspire Courage: Extra Sonic Damage</label></td>
@@ -780,7 +1059,6 @@
                                         <span id="inspirecouragesonic_bonus_main_sonic_dice"></span><span id="inspirecouragesonic_bonus_off_sonic_dice"></span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="haste_active" /></td>
                                     <td><label for="haste_active">Haste</label></td>
@@ -801,7 +1079,6 @@
                                         <span id="haste_AT">0</span><span id="haste_EXTRAAT">0</span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="hammerthegap_active" /></td>
                                     <td><label for="hammerthegap_active">Hammer the Gap [WIP]</label></td>
@@ -822,11 +1099,9 @@
                                         <span id="hammerthegap_HAMMERTHEGAP">0</span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <th colspan="5">Class-specific</th>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="mobilefighter_active" /></td>
                                     <td><label for="mobilefighter_active">Mobile Fighter</label></td>
@@ -851,13 +1126,10 @@
                                                     let buffval = $("#mobilefighter_slider").slider("value")
                                                     $("#mobilefighter_AT").text(buffval);
                                                     $("#mobilefighter_BONUSFIX_physical").text(buffval);
-
                                                     $("#mobilefighter_bonus_main_physical_fix").text(buffval);
                                                     $("#mobilefighter_bonus_maincrit_physical_fix").text(buffval);
                                                     $("#mobilefighter_bonus_off_physical_fix").text(buffval);
                                                     $("#mobilefighter_bonus_offcrit_physical_fix").text(buffval);
-
-
                                                 } else {
                                                     $("#mobilefighter_AT").text("0");
                                                     $("#mobilefighter_bonus_main_physical_fix").text("");
@@ -870,7 +1142,6 @@
                                         <span id="mobilefighter_AT">0</span><span id="mobilefighter_bonus_main_physical_fix"></span><span id="mobilefighter_bonus_maincrit_physical_fix"></span><span id="mobilefighter_bonus_off_physical_fix"></span><span id="mobilefighter_bonus_offcrit_physical_fix"></span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="mutagen_active" /></td>
                                     <td><label for="mutagen_active">Mutagen</label></td>
@@ -909,7 +1180,6 @@
                                             function mutagen_update() {
                                                 if ($("#mutagen_active").prop('checked')) {
                                                     let buffval = $("#mutagen_selector").val();
-
                                                     $("#mutagen_AT").text(buffval.substring(1,2));
                                                     $("#mutagen_bonus_main_physical_fix").text(buffval.substring(3));
                                                     $("#mutagen_bonus_maincrit_physical_fix").text(buffval.substring(3));
@@ -928,7 +1198,6 @@
                                         <span id="mutagen_AT">0</span><span id="mutagen_bonus_main_physical_fix"></span><span id="mutagen_bonus_maincrit_physical_fix"></span><span id="mutagen_bonus_off_physical_fix"></span><span id="mutagen_bonus_offcrit_physical_fix"></span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="sneak_active" /></td>
                                     <td><label for="sneak_active">Sneak Attack</label></td>
@@ -966,7 +1235,6 @@
                                         <span id="sneak_bonus_main_precision_dice"></span><span id="sneak_bonus_off_precision_dice"></span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="sneak2bonus_active" /></td>
                                     <td><label for="sneak2bonus_active">Sneak Attack: 1 -> 2</label></td>
@@ -989,7 +1257,6 @@
                                         <span id="sneak2bonus_SNEAKTWO">0</span><span id="sneak2bonus_AT">0</span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="sneak3bonus_active" /></td>
                                     <td><label for="sneak3bonus_active">Sneak Attack: 1,2 -> 3</label></td>
@@ -1010,11 +1277,9 @@
                                         <span id="sneak3bonus_SNEAKTHREE">0</span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <th colspan="5">Ranged</th>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="pointblank_active" /></td>
                                     <td><label for="pointblank_active">Point-Blank Shot</label></td>
@@ -1025,7 +1290,6 @@
                                             function pointblank_update() {
                                                 if ($("#pointblank_active").prop('checked')) {
                                                     $("#pointblank_AT").text("1");
-
                                                     $("#pointblank_bonus_main_physical_fix").text("1");
                                                     $("#pointblank_bonus_maincrit_physical_fix").text("1");
                                                     $("#pointblank_bonus_off_physical_fix").text("1");
@@ -1043,7 +1307,6 @@
                                         <span id="pointblank_AT">0</span><span id="pointblank_bonus_main_physical_fix"></span><span id="pointblank_bonus_maincrit_physical_fix"></span><span id="pointblank_bonus_off_physical_fix"></span><span id="pointblank_bonus_offcrit_physical_fix"></span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="rapidshot_active" /></td>
                                     <td><label for="rapidshot_active">Rapid Shot</label></td>
@@ -1064,7 +1327,6 @@
                                         <span id="rapidshot_AT">0</span><span id="rapidshot_EXTRAAT">0</span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="manyshot_active" /></td>
                                     <td><label for="manyshot_active">Manyshot</label></td>
@@ -1085,7 +1347,6 @@
                                         <span id="manyshot_MANYSHOT">0</span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="deadlyaim_active" /></td>
                                     <td><label for="deadlyaim_active">Deadly Aim</label></td>
@@ -1128,11 +1389,9 @@
                                         <span id="deadlyaim_AT">0</span><span id="deadlyaim_bonus_main_physical_fix"></span><span id="deadlyaim_bonus_maincrit_physical_fix"></span><span id="deadlyaim_bonus_off_physical_fix"></span><span id="deadlyaim_bonus_offcrit_physical_fix"></span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <th colspan="5">Melee</th>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="powerattack_active" /></td>
                                     <td><label for="powerattack_active">Power Attack</label></td>
@@ -1178,7 +1437,6 @@
                                                     $("#powerattack_bonus_off_physical_fix").text(buffval);
                                                     $("#powerattack_bonus_offcrit_physical_fix").text(buffval);
                                                 } else {
-
                                                     $("#powerattack_AT").text("0");
                                                     $("#powerattack_bonus_main_physical_fix").text("");
                                                     $("#powerattack_bonus_maincrit_physical_fix").text("");
@@ -1192,7 +1450,6 @@
                                         <span id="powerattack_AT"></span><span id="powerattack_bonus_main_physical_fix"></span><span id="powerattack_bonus_maincrit_physical_fix"></span><span id="powerattack_bonus_off_physical_fix"></span><span id="powerattack_bonus_offcrit_physical_fix"></span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="power2h_active" /></td>
                                     <td><label for="power2h_active">Power Attack Two-Handed</label></td>
@@ -1212,7 +1469,6 @@
                                         <span id="power2h_POWER2H">0</span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="fightdef_active" /></td>
                                     <td><label for="fightdef_active">Fight defensivly</label></td>
@@ -1233,7 +1489,6 @@
                                         <span id="fightdef_AT">0</span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="combatexpert_active" /></td>
                                     <td><label for="combatexpert_active">Combat Expertise (-x AT/+x AC)</label></td>
@@ -1266,11 +1521,9 @@
                                         <span id="combatexpert_AT">0</span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <th colspan="5">Extra modifiers (if needed)</th>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="atoffset_active" /></td>
                                     <td><label for="atoffset_active">AT Offset</label></td>
@@ -1296,7 +1549,6 @@
                                         <span id="atoffset_AT">0</span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="extraatoffset_active" /></td>
                                     <td><label for="extraatoffset_active">Extra Attacks at full BAB</label></td>
@@ -1322,7 +1574,6 @@
                                         <span id="extraatoffset_EXTRAAT">0</span>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td><input type="checkbox" id="dmgoffset_active" /></td>
                                     <td><label for="dmgoffset_active">Damage Offset</label></td>
@@ -1354,7 +1605,6 @@
                                         <span id="dmgoffset_bonus_main_physical_fix"></span><span id="dmgoffset_bonus_maincrit_physical_fix"></span><span id="dmgoffset_bonus_off_physical_fix"></span><span id="dmgoffset_bonus_offcrit_physical_fix"></span>
                                     </td>
                                 </tr>
-
                             </tbody>
                         </table>
                         <script>
@@ -1369,10 +1619,8 @@
                             }
                             $("input[id$='_active']").change(updateAll);
                             updateAll();
-
                             //$("#roundmods input[type='checkbox']").checkboxradio();
                             $("table#roundmods tbody tr td:nth-child(3)").addClass("parameters");
-
                             
                         </script>
                     <!--</div>
@@ -1394,7 +1642,6 @@
                         </tr>
                     </thead>
                     <tbody id="resolverows">
-
                     </tbody>
                 </table>
                 <script>
@@ -1402,16 +1649,13 @@
                         wassingleattack = false;
                         roll(false);
                     }
-
                     function roll(onlyone = false) {
                         let attackmods = getAllOfModifier("_AT");
                         let totalattackmods = sumOfArray(attackmods);
                         
                         let extraATs = getAllOfModifier("_EXTRAAT");
                         let totalextraATs = sumOfArray(extraATs);
-
                         $("#resolvemods_extras").text(totalextraATs);
-
                         let atmods_text = ""
                         let filteredatmods = filterArray(attackmods, "0");
                         for(let attackmod of filteredatmods) {
@@ -1426,9 +1670,6 @@
                         $("#resolvemods_atmods").text(atmods_text);
                         //let MANYSHOT = sumOfArray(getAllOfType("_MANYSHOT"));
                         
-
-
-
                         $("#maintabs").tabs({active: 2});
                         clearattacks();
                         let mainbonus = $("#mainattackchain").val().split(",");
@@ -1445,7 +1686,6 @@
                             critbonus = parseFloat(critbonus);
                         }
                         
-
                         let ibonus = 0;
                         for(let bonus of mainbonus) {
                             let totalbonus = parseFloat(bonus) + parseFloat(totalattackmods);
@@ -1460,8 +1700,6 @@
                             }
                             
                             ibonus += 1;
-
-
                         }
                         ibonus = 0;
                         if(offbonus != "") {
@@ -1469,21 +1707,16 @@
                                 let totalbonus = parseFloat(bonus) + parseFloat(totalattackmods);
                                 addattack(["off"+ibonus, "Off "+(ibonus+1)], parseFloat(totalbonus), parseFloat(totalbonus)+critbonus);
                                 ibonus += 1;
-
                             }
                         }
                         recolor();
                         updateLayout();
-
-
                     }
                     function rollone() {
                         //$("#maintabs").tabs({active: 2});
                         wassingleattack = true;
                         roll(true);
-
                     }
-
                     function recolor() {
                         let atrolls = getAllOfModifier("_result").map(Number);
                         let maxroll = Math.max(...atrolls);
@@ -1495,7 +1728,6 @@
                             $(this).css("color", "rgb("+newcolor[0]+", "+newcolor[1]+", "+newcolor[2]+")");
                         })
                     }
-
                     function clearattacks() {
                         $("#resolverows").empty();
                     }
@@ -1508,9 +1740,7 @@
                         newrow += '<td class="shrink"><select id="' + attackid[0] + '_tohitdice">' + d20selector + '</select></td>';
                         newrow += '<td class="shrink">+<span id="' + attackid[0] + '_modifier">' + modifier + '</span></td>';
                         newrow += '<td class="shrink">=<span id="' + attackid[0] + '_result" class="diceresult">0</span></td>';
-
                         newrow += '<td class="expand"><div id="' + attackid[0] + '_critthreat" class="critting"></span></td>';
-
                         newrow += '<td class="shrink"><label for="' + attackid[0] + '_tocrit">&nbsp;</label><input type="checkbox" id="' + attackid[0] + '_tocrit" /></td>';
                         newrow += '<td class="shrink"><select id="'+attackid[0]+'_tocritdice">'+d20selector+'</select></td>';
                         newrow += '<td class="shrink">+<span id="' + attackid[0] + '_critmodifier">' + critmodifier + '</span></td>';
@@ -1534,7 +1764,6 @@
                                 recolor();
                             }
                         }).selectmenu("menuWidget").addClass("overflow");
-
                         $("#" + attackid[0] + '_tohitdice').change(function() {
                             let nval = $(this).val();
                             let nmod = $("#" + attackid[0] + '_modifier').text();
@@ -1552,9 +1781,7 @@
                             
                             $("#" + attackid[0] + '_critthreat').text(threaten ? "CRIT THREAT": "");
                             
-
                         });
-
                         $("#" + attackid[0] + '_tocritdice').change(function() {
                             let nval = $(this).val();
                             let nmod = $("#" + attackid[0] + '_critmodifier').text();
@@ -1579,7 +1806,6 @@
                             $("#" + attackid[0] + '_tocritdice').val(critnumber).trigger("change");
                             $("#" + attackid[0] + '_tocritdice').selectmenu("refresh");
                         }
-
                     }
                 </script>
             </div>
@@ -1588,14 +1814,13 @@
                 <div id="resultcontainer">
                     
                     
-
                 </div>
                 <br /><br /><br />
                 
                 <div class="semiaccordion" id="huliresults">
                     <h3>Results for Discord</h3>
                     <div>
-                        <textarea id="discordoutput" class="discordoutput" cols="200" rows="10" disabled>asdf</textarea>
+                        <textarea id="discordoutput" class="discordoutput" cols="200" rows="10" disabled></textarea>
                         <button onclick="copydiscordoutput();" class="fullwidth">Copy to clipboard</button>
                     </div>
                 </div>
@@ -1608,7 +1833,6 @@
                             $("#discordoutput").css("border-color", "red").animate({"border-color": "black"}, 2000);
                         })
                     }
-
                     function resolveattacks() {
                         // RESOLVE ATTACKS
                         $("#resultcontainer").empty();
@@ -1620,7 +1844,6 @@
                                 continue;
                             }
                             if(filterArray(getAllOfDamage("_" + dtype + "_"), "").length == 0) {
-
                                 console.log("skipped dtype "+dtype);
                                 continue;
                             }
@@ -1629,7 +1852,6 @@
                             relevanttypes.push(dtype);
                         }
                         console.log(relevanttypes);
-
                         resulttable += "<thead><tr><th colspan='2'></th>";
                         for(let dtype of relevanttypes) {
                             resulttable += "<th>" + damagetype_aliases[dtype] + "</th>";
@@ -1648,7 +1870,6 @@
                             }
                             //console.log(attackid+" hits!");
                             let hitemote = emotes.normal;
-
                             if($("#manyshot_MANYSHOT").text() == "1" && attackid == "main0") {
                                 console.log("Manyshot hits!");
                                 hitemote = emotes.manyshot;
@@ -1656,7 +1877,6 @@
                             if(crits) {
                                 hitemote += emotes.critical;
                             }
-
                             //resolve damages
                             damage = {total: 0};
                             for(let dtype of relevanttypes) {
@@ -1674,7 +1894,6 @@
                                     alldice = alldice.concat(alldice);
                                     allfix = allfix.concat(allfix);
                                 }
-
                                 if(crits) {
                                     let critquery = ismainhand ? "maincrit_" : "offcrit_";
                                     critquery += dtype;
@@ -1685,7 +1904,6 @@
                                     let ccritmult = $("#" + b).slider("value");
                                     let c = a.map(function(x) { return parseFloat(x) * ccritmult });
                                     allfix = allfix.concat(c);
-                                    
                                 }
                                 //console.log(alldice, allfix);
                                 damage[dtype].singles = allfix.map(Number);
@@ -1715,7 +1933,6 @@
                             //console.log("alldmg", damage);
                             alldmg[attackid] = damage;
                             hitemote += damagebasedemotes(damage.total);
-
                             resulttable += "<tr>";
                             resulttable += "<td>" + hitemote + "</td><th>" + $("#"+attackid+" th").text() + "</th>"
                             for(let dtype of relevanttypes) {
@@ -1724,11 +1941,9 @@
                                 resulttable += '<td title="' + verbs + '">'+damagebasedemotes(damage[dtype].total, true, factor=0.5)+"&nbsp;"+damagetype_emotes[dtype]+'<span id="">'+damage[dtype].total+'</span></td>'
                             }
                             resulttable += '<td>' + damage.total + '</td>'
-
                             resulttable += "</tr>";
                         });
                         console.log(alldmg);
-
                         let alltotals = {};
                         let all = 0;
                         for(let dtype of relevanttypes) {
@@ -1739,9 +1954,6 @@
                             alltotals[dtype] = counter;
                             all += counter;
                         }
-
-
-
                         resulttable += "</tbody>";
                         resulttable += '<tbody id="resulttotals">';
                         resulttable += '<td></td><th>SUM</th>';
@@ -1779,13 +1991,9 @@
                         }
                         discordout += "\n```";
                         $("#discordoutput").val(discordout);
-
-
-
                         $("#maintabs").tabs({active: 3});
                         updateLayout();
                     }
-
                     function resetresolver() {
                         $("#maintabs").tabs({active: 1});
                         updateLayout();
@@ -1806,9 +2014,6 @@
         <button id="rollone_side" onClick="rollone();" style="flex-grow: 15;">Roll 1</button>
         <button id="resolve_side" onClick="resolveattacks();"  style="flex-grow: 20;">Resolve</button>
     </div>
-
-
-
     <script>
         //dynamic addition of elements
         for (const [key, preset] of Object.entries(presets)) {
@@ -1816,13 +2021,10 @@
             var r = $('<button class="quarterwidth" onClick="loadpreset(\''+key+'\');">'+preset.name+'</button>')
             $("#presetcontainer").append(r)
         }
-
-
         //init ui components
         $(document).ready(function() {
-
             $("button").button();
-            
+            $("#damagesetup").transpose({mode: 0});
             $(".semiaccordion").accordion({
                 collapsible: true
             })
@@ -1843,15 +2045,13 @@
             });
             //restyle normal inputs
             $('input').addClass("ui-widget ui-widget-content ui-corner-all");
-
             loadpreset(defaultload);
             updateLayout();
         });
-
         function updateLayout() {
-            
             let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
             let vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+            let damagetabletransposed = $("#damagesetup").has('tbody tr[id^="tp_row_"]');
             if(vw > vh) {
                 //landscape/horizontal
                 $(".tabcontainer").removeClass("tabbuttonsbottom");
@@ -1859,15 +2059,19 @@
                 $(".sidebuttoncontainer").removeClass("hidediv");
                 $(".buttoncontainer").addClass("hidediv")
                 
+                if(damagetabletransposed.length > 0) {
+                    $("#damagesetup").transpose("reset");
+                }
             } else {
                 //portrait/vertical
                 $(".tabcontainer").removeClass("tabbuttonsright");
                 $(".tabcontainer").addClass("tabbuttonsbottom");
                 $(".buttoncontainer").removeClass("hidediv");
                 $(".sidebuttoncontainer").addClass("hidediv")
+                if(damagetabletransposed.length == 0) {
+                    $("#damagesetup").transpose("transpose");
+                }
             }
-            
-            
             $("#huliresults").accordion("refresh");
             $(".semiaccordion").accordion("refresh");
             $(".normalaccordion").accordion("refresh");
@@ -1876,14 +2080,12 @@
             $("#huliresults").accordion("refresh");
             $(".semiaccordion").accordion("refresh");
             $(".normalaccordion").accordion("refresh");
-
         }
-
         $(window).resize(function() {
             console.log("viewport changed!");
             updateLayout();
         });
     </script>
-    <div class="versionnumber">0.4 beta</div>
+    <div class="versionnumber">0.4a beta</div>
 </body>
 </html>

@@ -132,11 +132,15 @@ button#rollone {
 }
 
 #damagesetup tbody tr td select {
-    width: 70px;
+    min-width: 70px;
+    max-width: 100%;
+    width: 100%;
 }
 
 #damagesetup tbody tr td input {
-    width: 70px;
+    width: 100%;
+    min-width: 70px;
+    max-width: 100%;
 }
 
 .ui-accordion .ui-accordion-content {
