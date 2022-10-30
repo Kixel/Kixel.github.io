@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="partey.css">
+		<script src="partey.js"></script>
+		<meta charset="UTF-8">
+		<title>Andi macht Partey</title>
+	</head>
+	<body>
+		<div class="playerblock" id='base'>
+			<h1 class="titlecard">Andi macht Partey</h1>
+			<h2 class="subcard">Von wann ist dieses Video?</h2>
+			
+			<a href="#pb0" class="downbutton buttonbase">🠗</a>
+		</div>

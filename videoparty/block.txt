@@ -1,0 +1,23 @@
+<div class="playerblock" id="pbid">
+	<a name="pbid"></a>
+	<div class="pbcontainer">
+		<iframe class="responsiveiframe" id="framepid" src="contentlink"></iframe>
+	</div>
+	<h1 class="pcounter">pid</h1>
+	<a href="#pbup" class="upbutton buttonbase">🠕</a>
+	<a href='javascript:refreshframe("framepid");' class="refreshbutton buttonbase">🗘</a>
+	<a href="#pbdown" class="downbutton buttonbase">🠗</a>
+	<div class="spoilerbox" onclick='togglehidden("sppbid");'>
+		<div class="spoilered" id="sppbid">
+			contentdate
+		</div>
+	</div>
+	<div class="namebox">
+		<div class="promo">
+			pbpromo
+		</div>
+		<div class="promoname">
+			contentname
+		</div>
+	</div>
+</div>

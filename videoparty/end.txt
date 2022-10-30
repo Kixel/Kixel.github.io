@@ -1,0 +1,8 @@
+		<div class="playerblock" id="bottombase">
+			<h1 class="titlecard">Das war's!</h1>
+			<h2 class="subcard">Wer ist noch nüchtern?</h2>
+			
+			<a href="#pblast" class="upbutton buttonbase">🠕</a>
+		</div>
+	</body>
+</html>

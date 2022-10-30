@@ -1,8 +1,0 @@
-		<div class="playerblock" id="bottombase">
-			<h1 class="titlecard">Pipipause!</h1>
-			<h2 class="subcard"><a href="nextpage">Weiter geht's!</a></h2>
-			
-			<a href="#pblast" class="upbutton buttonbase">🠕</a>
-		</div>
-	</body>
-</html>

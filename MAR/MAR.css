@@ -1,0 +1,301 @@
+
+
+div.tabcontainer {
+    top: 60px;
+    position:absolute;
+    bottom: 200px;
+    left: 10px;
+    right: 10px;
+}
+
+div.header {
+    position: absolute;
+    top: 1px;
+    height: 45px;
+    left: 10px;
+    right: 10px;
+}
+
+h1.totaltitle {
+    margin-top: 2px;
+    margin-bottom: 0px;
+    text-align:center;
+}
+
+h4.totalsub {
+    margin-top: -10px;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+
+.ui-tabs .ui-tabs-nav {
+    display: flex;
+    justify-content: center;
+}
+
+.ui-tabs .ui-tabs-nav li {
+    float: none !important;
+    display: inline-block;
+    margin: 0em;
+}
+
+.ui-tabs .ui-tabs-nav li.leftli {
+    float: left !important;
+    right: 100px;
+}
+
+.ui-tabs-nav li a {
+    float: none;
+}
+
+div.buttoncontainer {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    height: 180px;
+    display:flex;
+    row-gap: 10px;
+    column-gap: 10px;
+
+}
+
+div.rollbuttons {
+    display:flex;
+    flex-direction:column;
+    /*width: 48%;*/
+    row-gap: 10px;
+    flex-grow: 2;
+}
+
+button#reset {
+    height:100%;
+    /*width:25%;*/
+    flex-grow: 1;
+}
+
+button#resolve {
+    height:100%;
+    /*width:25%;*/
+    flex-grow: 1;
+}
+
+button#rollall {
+    flex-grow: 2;
+}
+
+button#rollone {
+    flex-grow: 1;
+}
+
+.fullwidth {
+    width:100%;
+}
+.quarterwidth {
+    width: 24.8%;
+}
+
+#damagesetup tbody tr td select {
+    width: 70px;
+}
+
+#damagesetup tbody tr td input {
+    width: 70px;
+}
+
+.ui-accordion .ui-accordion-content {
+    padding: 0.5em 1em !important;
+}
+
+td.hidey span {
+    padding-left: 1px;
+    display: none;
+}
+
+table#roundmods thead tr th {
+    text-align: left;
+}
+
+table#roundmods tbody tr th {
+    text-align: left;
+    padding-left:35px;
+}
+
+div#loadsavecontainer {
+    display: flex;
+    justify-content: center;
+}
+
+div#loadsavecontainer div {
+    flex: 1 1 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+table.ui-styled-table {
+    border-collapse: collapse;
+}
+
+.topmargin {
+    margin-top: 20px;
+}
+
+table.ui-styled-table td.ui-state-hover {
+    font-weight: inherit;
+    /* *font-weight: expression(this.parentNode.currentStyle['fontWeight']); */
+}
+
+table.ui-styled-table th, table.ui-styled-table td {
+    border-bottom-width: 0px !important;
+}
+
+  
+table.ui-styled-table tbody tr:hover th,
+table.ui-styled-table tbody tr:hover td {
+    border-bottom-width: 1px !important;
+}
+
+table.ui-styled-table tbody tr:hover + tr th,
+table.ui-styled-table tbody tr:hover + tr td {
+    border-top-width: 0px !important;
+}
+
+ 
+table.ui-styled-table tbody tr.last-child th,
+table.ui-styled-table tbody tr.last-child td {
+    border-bottom-width: 1px !important;
+}
+
+table.ui-styled-table tbody tr:last-child th,
+table.ui-styled-table tbody tr:last-child td {
+    border-bottom-width: 1px !important;
+}
+
+table#roundmods label.ui-checkboxradio-label.ui-corner-all.ui-button.ui-widget {
+    width: 100%;
+    display: block;
+    padding-right: 0px;
+    text-align: left;
+}
+
+.parameters {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.parameters select {
+    width: 98%;
+}
+.parameters input {
+    width: 98%;
+}
+.parameters span.ui-selectmenu-button {
+    width: 98%
+}
+
+table#resolvetable input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+
+}
+
+table#roundmods input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+
+}
+
+table#basicsetuptable tr td:nth-child(2) input {
+    width: 100%;
+}
+
+table#basicsetuptable tr td:nth-child(2) {
+    padding-right: 20px;
+}
+
+label.ui-checkboxradio-label.ui-corner-all.ui-button.ui-widget{
+    background-color: red;
+    background-image: unset;
+}
+
+label.ui-checkboxradio-label.ui-corner-all.ui-button.ui-widget.ui-checkboxradio-checked.ui-state-active {
+    background-color: greenyellow;
+    background-image: unset;
+}
+
+h1 {
+    font-family: 'Carter One';
+    position: relative;
+}
+
+
+.ui-tab, .ui-accordion-header {
+    font-family: 'Carter One';
+}
+
+button {
+    font-family: 'Carter One' !important;
+}
+
+h4.totalsub {
+    position: relative;
+
+}
+
+.buttoncontainer button {
+    font-size: 2.5em;
+    padding: 5px;
+}
+
+.incritrange {
+    color: green;
+}
+
+.diceresult {
+    font-family: 'Carter One';
+    font-size: 1.5em;
+}
+
+.shrink {
+    white-space: nowrap;
+}
+
+.expand {
+    width: 33%;
+}
+
+table#resolvetable tr th {
+    white-space: nowrap;
+}
+
+table#resolvetable tbody tr td span.ui-selectmenu-button {
+    width: 100px;
+}
+
+.critting {
+    text-align: center;
+    width: 100%;
+    font-style: italic;
+    color: darkred;
+}
+
+.leftaligned {
+    text-align: left;
+}
+
+.rightaligned {
+    text-align: right;
+}
+
+.overflow {
+    color:black;
+}
+
+table.resulttable tbody tr td {
+    text-align: center;
+}
