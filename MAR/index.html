@@ -1791,6 +1791,10 @@
                         //    icon: false
                         //});
                         
+                        if(modifier > 250) {
+                            $("#" + attackid[0] + '_tohit').prop("checked", true);
+                        }
+
                         if(autodiceroll) {
                             let hitnumber = randomdicenumber(20);
                             //$("#" + + attackid[0] + '_tohit').prop("checked", false).checkboxradio('refresh');
@@ -2086,6 +2090,6 @@
             updateLayout();
         });
     </script>
-    <div class="versionnumber">0.4a beta</div>
+    <div class="versionnumber">0.4b beta</div>
 </body>
 </html>
