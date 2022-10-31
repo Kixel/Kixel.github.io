@@ -53,6 +53,7 @@
             var defaultload = "sven1";
         } 
         var wassingleattack = false;
+        var buttonsareloaded = false;
         const autodiceroll = true;
         const d20selector = '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option>'
         const damagetypes_full = ["physical", "force", "psy"];
@@ -1698,7 +1699,12 @@
                 let pfilename = pfile.split(".")[0];
                 if(!(pfilename in presets)) {
                     console.log("missing preset: ", pfilename);
+                    return;
                 }
+            }
+            if(buttonsareloaded) {
+                console.log("buttons already there!");
+                return;
             }
             console.log("found all presets!")
             for (const [key, preset] of Object.entries(presets)) {
@@ -1773,6 +1779,6 @@
             updateLayout();
         });
     </script>
-    <div class="versionnumber">0.4e beta</div>
+    <div class="versionnumber">0.4f beta</div>
 </body>
 </html>
