@@ -1712,6 +1712,8 @@
                 var r = $('<button class="quarterwidth" onClick="loadpreset(\''+key+'\');">'+preset.name+'</button>')
                 $("#presetcontainer").append(r)
             }
+            $('#presetcontainer button').addClass("ui-widget ui-widget-content ui-corner-all");
+            updateLayout();
         }
         addAllButtons();
         //init ui components
@@ -1779,6 +1781,6 @@
             updateLayout();
         });
     </script>
-    <div class="versionnumber">0.4f beta</div>
+    <div class="versionnumber">0.4g beta</div>
 </body>
 </html>
