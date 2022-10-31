@@ -177,6 +177,7 @@
                         let filename = presetfile.split(".")[0];
                         console.log(data);
                         presets[filename] = data;
+                        addAllButtons();
                     },
                     error: function(stuff, txtstuff, errorstuff) {
                         console.log("error loading "+presetfile);
@@ -1692,11 +1693,21 @@
     </div>
     <script>
         //dynamic addition of elements
-        for (const [key, preset] of Object.entries(presets)) {
-            //console.log(preset.name)
-            var r = $('<button class="quarterwidth" onClick="loadpreset(\''+key+'\');">'+preset.name+'</button>')
-            $("#presetcontainer").append(r)
+        function addAllButtons() {
+            for(let pfile of presetfiles) {
+                let pfilename = pfile.split(".")[0];
+                if(!(pfilename in presets)) {
+                    console.log("missing preset: ", pfilename);
+                }
+            }
+            console.log("found all presets!")
+            for (const [key, preset] of Object.entries(presets)) {
+                //console.log(preset.name)
+                var r = $('<button class="quarterwidth" onClick="loadpreset(\''+key+'\');">'+preset.name+'</button>')
+                $("#presetcontainer").append(r)
+            }
         }
+        addAllButtons();
         //init ui components
         $(document).ready(function() {
             $("button").button();
