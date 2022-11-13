@@ -5,15 +5,16 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Carter One">
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">-->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+    -->
 
+    <link rel="stylesheet" href="./MAR.css">
     <script src="./scripts/jquery.min.js"></script>
     <script src="./scripts/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="./scripts/jquery-ui.css">
-
+    
     <script src="https://randojs.com/2.0.0.js"></script>
     <script src="scripts/jquery.table.transpose.min.js"></script>
-    <link rel="stylesheet" href="./MAR.css">
     <title>Multi-Attack-Resolver</title>
     <script>
         (function ($) {
@@ -65,6 +66,7 @@
         const damagetypes_dice = ["sonic", "storm", "acid", "fire", "ice", "good", "evil", "other"];
         const damagetypes_fix = ["other"];
         const damagetypes_hidden_dice = ["precision", "sneak"];
+        const damagetypes_hidden_fix = ["hammerthegap"];
         const damagedice = ["", "1d6", "2d6", "1d8", "2d8", "1d10", "1d12", "1d4", "2d4", "3d4", "4d4", "5d4", "3d6", "4d6", "5d6", "6d6", "7d6", "8d6", "9d6", "10d6"];
         const damagetype_aliases = {
             "physical": "Physical",
@@ -79,7 +81,8 @@
             "evil": "Unholy",
             "other": "Misc.",
             "precision": "Precision",
-            "sneak": "Sneak"
+            "sneak": "Sneak",
+            "hammerthegap": "HTG"
         }
         const damagetype_emotes = {
             "physical": "⚔",
@@ -95,6 +98,7 @@
             "evil": "👿",
             "other": "⚠",
             "precision": "🎯",
+            "hammerthegap": "🔨"
             //"sneak": "👁️‍🗨️"
         }
         const presetfiles = ["sven1.json", "dinh1.json", "alessia1.json", "andi1.json"];
@@ -102,7 +106,7 @@
             "default": {
                 name: "Default",
                 items: {
-                    "mainattackchain": "1",
+                    "mainattackchain": "6,1",
                     "offattackchain": "",
                     "maincritroll": 20,
                     "offcritroll": 20,
@@ -754,7 +758,7 @@
                                 </tr>
                                 <tr>
                                     <td><input type="checkbox" id="hammerthegap_active" /></td>
-                                    <td><label for="hammerthegap_active">Hammer the Gap [WIP]</label></td>
+                                    <td><label for="hammerthegap_active">Hammer the Gap</label></td>
                                     <td>Increased extra damage for each consecutive hit</td>
                                     <td id="hammerthegap_preview">&nbsp;</td>
                                     <td class="hidey">
@@ -762,14 +766,17 @@
                                             function hammerthegap_update() {
                                                 if ($("#hammerthegap_active").prop('checked')) {
                                                     $("#hammerthegap_HAMMERTHEGAP").text("1");
+                                                    $("#hammerthegap_bonus_main_hammerthegap_fix").text("1");
+                                                    $("#hammerthegap_bonus_off_hammerthegap_fix").text("1");
                                                     
                                                 } else {
                                                     $("#hammerthegap_HAMMERTHEGAP").text("0");
-                                                    
+                                                    $("#hammerthegap_bonus_main_hammerthegap_fix").text("");
+                                                    $("#hammerthegap_bonus_off_hammerthegap_fix").text("");
                                                 }                                            
                                             }
                                         </script>
-                                        <span id="hammerthegap_HAMMERTHEGAP">0</span>
+                                        <span id="hammerthegap_HAMMERTHEGAP">0</span><span id="hammerthegap_bonus_main_hammerthegap_fix"></span><span id="hammerthegap_bonus_off_hammerthegap_fix"></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -1515,7 +1522,7 @@
                         $("#resultcontainer").empty();
                         let resulttable = '<table class="resulttable fullwidth">';
                         let relevanttypes = [];
-                        let alltypeconcat = damagetypes_full.concat(damagetypes_dice, damagetypes_fix, damagetypes_hidden_dice);
+                        let alltypeconcat = damagetypes_full.concat(damagetypes_dice, damagetypes_fix, damagetypes_hidden_dice, damagetypes_hidden_fix);
                         for(let dtype of alltypeconcat) {
                             if(relevanttypes.includes(dtype)) {
                                 continue;
@@ -1536,7 +1543,9 @@
                         resulttable += "<th>SUM</th></tr></thead>";
                         resulttable += "<tbody>";
                         alldmg = {};
+                        atnr = -1;
                         $("tbody#resolverows tr").each(function() {
+                            atnr += 1;
                             let attackid = $(this).attr("id");
                             let ismainhand = attackid.substring(0,3) != "off";
                             let hits = $("#"+attackid+"_tohit").is(":checked");
@@ -1567,7 +1576,10 @@
                                 query += dtype
                                 let alldice = filterArray(getAllOfDamage(query+"_dice"), "");
                                 let allfix = filterArray(getAllOfDamage(query+"_fix"), "");
-                                if($("#manyshot_MANYSHOT").text() == "1" && attackid == "main0") {
+                                if(dtype == "hammerthegap") {
+                                    allfix = [atnr];
+                                }
+                                if($("#manyshot_MANYSHOT").text() == "1" && attackid == "main0" && !wassingleattack) {
                                     if(dtype != "precision") {
                                         //console.log("manyshot", alldice, dtype);
                                         alldice = alldice.concat(alldice);
@@ -1582,11 +1594,13 @@
                                     critquery += dtype;
                                     alldice = alldice.concat(filterArray(getAllOfDamage(critquery+"_dice"), ""));
                                     allfix = allfix.concat(filterArray(getSetupDamage(critquery+"_fix"), ""));
+                                    console.log("htg?", dtype, allfix);
                                     let b = ismainhand ? "maincritmult" : "offcritmult";
                                     let a = filterArray(getModifyDamage(critquery+"_fix"), "");
                                     let ccritmult = $("#" + b).slider("value");
                                     let c = a.map(function(x) { return parseFloat(x) * ccritmult });
                                     allfix = allfix.concat(c);
+                                    console.log("more", allfix);
                                 }
                                 //console.log(alldice, allfix);
                                 damage[dtype].singles = allfix.map(Number);
@@ -1617,7 +1631,7 @@
                             alldmg[attackid] = damage;
                             hitemote += damagebasedemotes(damage.total);
                             resulttable += "<tr>";
-                            resulttable += "<td>" + hitemote + "</td><th>" + $("#"+attackid+" th").text() + "</th>"
+                            resulttable += "<td>" + hitemote + "</td><th>" + $("#"+attackid+" th").text() + " (🗡" + $("#" + attackid + "_result").text() + ")</th>"
                             for(let dtype of relevanttypes) {
                                 let verbs = verboseDamageString(damage[dtype].singles, damage[dtype].vocal);
                                 //console.log(verbs);
@@ -1786,6 +1800,6 @@
             updateLayout();
         });
     </script>
-    <div class="versionnumber">0.4k beta</div>
+    <div class="versionnumber">0.5a beta</div>
 </body>
 </html>
