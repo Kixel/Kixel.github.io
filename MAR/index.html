@@ -1201,6 +1201,81 @@
                                         <span id="combatexpert_AT">0</span>
                                     </td>
                                 </tr>
+
+                                <tr>
+                                    <th colspan="5">Debuffs</th>
+                                </tr>
+
+                                <tr>
+                                    <td><input type="checkbox" id="sickened_active" /></td>
+                                    <td><label for="sickened_active">Sickened</label></td>
+                                    <td>-2 to AT, DMG, Saves, Skills, Ability-Checks</td>
+                                    <td id="sickened_preview">&nbsp;</td>
+                                    <td class="hidey">
+                                        <script>
+                                            function sickened_update() {
+                                                if ($("#sickened_active").prop('checked')) {
+                                                    $("#sickened_AT").text("-2");
+                                                    $("#sickened_bonus_main_physical_fix").text("-2");
+                                                    $("#sickened_bonus_maincrit_physical_fix").text("-2");
+                                                    $("#sickened_bonus_off_physical_fix").text("-2");
+                                                    $("#sickened_bonus_offcrit_physical_fix").text("-2");
+                                                    
+                                                } else {
+                                                    $("#sickened_AT").text("0");
+                                                    $("#sickened_bonus_main_physical_fix").text("");
+                                                    $("#sickened_bonus_maincrit_physical_fix").text("");
+                                                    $("#sickened_bonus_off_physical_fix").text("");
+                                                    $("#sickened_bonus_offcrit_physical_fix").text("");
+                                                }                                            
+                                            }
+                                        </script>
+                                        <span id="sickened_AT">0</span>
+                                    </td>
+                                </tr>  
+                                
+                                <tr>
+                                    <td><input type="checkbox" id="shaken_active" /></td>
+                                    <td><label for="shaken_active">Shaken</label></td>
+                                    <td>-2 to AT, Saves, Skills, Ability-Checks</td>
+                                    <td id="shaken_preview">&nbsp;</td>
+                                    <td class="hidey">
+                                        <script>
+                                            function shaken_update() {
+                                                if ($("#shaken_active").prop('checked')) {
+                                                    $("#shaken_AT").text("-2");
+                                                    
+                                                } else {
+                                                    $("#shaken_AT").text("0");
+                                                    
+                                                }                                            
+                                            }
+                                        </script>
+                                        <span id="shaken_AT">0</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td><input type="checkbox" id="dazzled_active" /></td>
+                                    <td><label for="dazzled_active">Dazzled</label></td>
+                                    <td>-1 AT, Perception</td>
+                                    <td id="dazzled_preview">&nbsp;</td>
+                                    <td class="hidey">
+                                        <script>
+                                            function dazzled_update() {
+                                                if ($("#dazzled_active").prop('checked')) {
+                                                    $("#dazzled_AT").text("-1");
+                                                    
+                                                } else {
+                                                    $("#dazzled_AT").text("0");
+                                                    
+                                                }                                            
+                                            }
+                                        </script>
+                                        <span id="shaken_AT">0</span>
+                                    </td>
+                                </tr>
+
                                 <tr>
                                     <th colspan="5">Extra modifiers (if needed)</th>
                                 </tr>
