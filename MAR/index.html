@@ -1620,7 +1620,6 @@
                         alldmg = {};
                         atnr = -1;
                         $("tbody#resolverows tr").each(function() {
-                            atnr += 1;
                             let attackid = $(this).attr("id");
                             let ismainhand = attackid.substring(0,3) != "off";
                             let hits = $("#"+attackid+"_tohit").is(":checked");
@@ -1629,6 +1628,7 @@
                             if(!hits) {
                                 return;
                             }
+                            atnr += 1;
                             //console.log(attackid+" hits!");
                             let hitemote = emotes.normal;
                             if($("#manyshot_MANYSHOT").text() == "1" && attackid == "main0") {
@@ -1875,6 +1875,6 @@
             updateLayout();
         });
     </script>
-    <div class="versionnumber">0.5b beta</div>
+    <div class="versionnumber">0.5c beta</div>
 </body>
 </html>
